@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import LandingPage from "#/views/root/Landing";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -8,7 +7,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <div className="min-h-screen bg-white">
-      <LandingPage />
+      <h1>Home</h1>
     </div>
   );
 }
