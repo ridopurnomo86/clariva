@@ -1,31 +1,64 @@
-import { Link } from "@tanstack/react-router";
-import { Eye, EyeOff, LayoutTemplate } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useForm } from "@tanstack/react-form";
+import LoginSchemaValidation from "#/modules/validation/auth/login";
+
+export function FieldInfo({ state }: any) {
+  return (
+    <>
+      {state.meta.isTouched && !state.meta.isValid ? (
+        <em className="text-red-500 text-sm">
+          {state.meta.errors?.[0]?.message}
+        </em>
+      ) : null}
+    </>
+  );
+}
 
 const Form = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    validators: {
+      onChange: LoginSchemaValidation,
+    },
+    onSubmit: async ({ value }) => {
+      console.log(value);
+    },
+  });
+
   return (
-    <div className="w-full lg:w-3/5 flex items-center justify-center p-8 sm:p-12 lg:p-20 bg-white dark:bg-zinc-950">
-      <div className="w-full max-w-md space-y-9">
+    <div className="w-full lg:w-2/5 flex items-center justify-center p-8 sm:p-12 lg:p-20 bg-white dark:bg-zinc-950">
+      <div className="w-full max-w-md space-y-4">
         {/* Header */}
-        <div className="space-y-3">
-          <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center lg:hidden">
-            <LayoutTemplate className="w-6 h-6 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Welcome back to Clariva
+        <div className="text-center">
+          <h1 className="mb-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+            Clariva
           </h1>
+          <p className="mb-1 text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
+            Safes Hires, Smarter Workflows
+          </p>
           <p className="text-base text-zinc-500 dark:text-zinc-400">
-            Build your workflows effortlessly with our powerful component
-            library.
+            Build your workflows effortlessly with our powerful workflow
+            builder.
           </p>
         </div>
 
         {/* Form */}
-        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+        <form
+          className="space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void form.handleSubmit();
+          }}
+        >
           <div className="space-y-4">
             <div className="space-y-2 group">
               <label
@@ -34,12 +67,22 @@ const Form = () => {
               >
                 Email
               </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="alex.jordan@gmail.com"
-                className="w-full px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-              />
+              <form.Field name="email">
+                {({ state, handleBlur, handleChange }) => (
+                  <>
+                    <input
+                      value={state.value}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e.target.value)}
+                      id="email"
+                      type="email"
+                      placeholder="alex.jordan@gmail.com"
+                      className="w-full px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                    />
+                    <FieldInfo state={state} />
+                  </>
+                )}
+              </form.Field>
             </div>
 
             <div className="space-y-2 group">
@@ -58,12 +101,22 @@ const Form = () => {
                 </Link>
               </div>
               <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••••••"
-                  className="w-full px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                />
+                <form.Field name="password">
+                  {({ state, handleBlur, handleChange }) => (
+                    <>
+                      <input
+                        value={state.value}
+                        onBlur={handleBlur}
+                        onChange={(e) => handleChange(e.target.value)}
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••••••"
+                        className="w-full px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                      />
+                      <FieldInfo state={state} />
+                    </>
+                  )}
+                </form.Field>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -101,7 +154,10 @@ const Form = () => {
           </div>
 
           {/* Submit Button */}
-          <Button className="w-full py-6 text-lg font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]">
+          <Button
+            type="submit"
+            className="w-full py-6 text-lg font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
+          >
             Log in
           </Button>
         </form>

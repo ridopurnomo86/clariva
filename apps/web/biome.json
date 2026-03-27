@@ -1,4 +1,11 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.7/schema.json",
-  "extends": ["../../biome.base.json"]
+  "extends": ["../../biome.base.json"],
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "off"
+      }
+    }
+  }
 }

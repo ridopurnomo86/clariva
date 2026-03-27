@@ -1,179 +1,118 @@
 import { Link } from "@tanstack/react-router";
-
-import {
-  Eye,
-  EyeOff,
-  LayoutTemplate,
-  Lock,
-  Mail,
-  Sparkles,
-  User,
-} from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useForm } from "@tanstack/react-form";
+import RegisterSchemaValidation from "#/modules/validation/auth/register";
+import { cn } from "#/lib/utils";
+
+export function FieldInfo({ state }: any) {
+  return (
+    <>
+      {state.meta.isTouched && !state.meta.isValid ? (
+        <em className="text-red-500 text-sm">
+          {state.meta.errors?.[0]?.message}
+        </em>
+      ) : null}
+    </>
+  );
+}
 
 const Form = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
 
-  return (
-    <div className="w-full lg:w-3/5 flex items-center justify-center p-8 sm:p-12 lg:p-20 bg-white dark:bg-zinc-950 relative overflow-hidden">
-      <div className="absolute top-1/2 left-3/4 -translate-y-1/2 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="w-full max-w-md space-y-9 relative z-10">
-        <div className="space-y-4">
-          <Link
-            to="/"
-            className="inline-flex lg:hidden items-center gap-2 mb-6"
-          >
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <LayoutTemplate className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-              Clariva
-            </span>
-          </Link>
+  const form = useForm({
+    defaultValues: {
+      fullname: "",
+      email: "",
+      password: "",
+      verifyPassword: "",
+    },
+    validators: {
+      onChange: RegisterSchemaValidation,
+    },
+    onSubmit: async ({ value }) => {
+      console.log(value);
+    },
+  });
 
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 text-xs font-bold text-indigo-600 dark:text-indigo-400">
-              <Sparkles className="w-3.5 h-3.5" />
-              Join clariva Today
-            </div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
-              Create Account
-            </h1>
-            <p className="text-base text-zinc-500 dark:text-zinc-400">
-              Start building beautiful forms and powerful workflows in seconds.
-            </p>
-          </div>
+  return (
+    <div className="w-full lg:w-2/5 flex items-center justify-center p-8 sm:p-12 lg:p-20 bg-white dark:bg-zinc-950">
+      <div className="w-full max-w-md space-y-4">
+        {/* Header */}
+        <div className="text-center">
+          <h1 className="mb-4 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+            Clariva
+          </h1>
+          <p className="mb-1 text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
+            Create your account
+          </p>
+          <p className="text-base text-zinc-500 dark:text-zinc-400">
+            Start building beautiful forms and powerful workflows in seconds.
+          </p>
         </div>
 
-        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+        {/* Form */}
+        <form
+          className="space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void form.handleSubmit();
+          }}
+        >
           <div className="space-y-4">
-            <div className="space-y-2 group">
-              <label
-                htmlFor="fullname"
-                className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 group-focus-within:text-indigo-600 transition-colors"
-              >
-                Fullname
-              </label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-indigo-500 transition-colors">
-                  <User className="w-4.5 h-4.5" />
-                </div>
-                <input
-                  id="fullname"
-                  type="text"
-                  placeholder="Alex Jordan"
-                  className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                />
-              </div>
-            </div>
-
             {/* Email */}
-            <div className="space-y-2 group">
+            <div className="space-y-1 group">
               <label
                 htmlFor="email"
                 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 group-focus-within:text-indigo-600 transition-colors"
               >
                 Email
               </label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-indigo-500 transition-colors">
-                  <Mail className="w-4.5 h-4.5" />
-                </div>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="alex.jordan@gmail.com"
-                  className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div className="space-y-2 group">
-              <label
-                htmlFor="password"
-                className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 group-focus-within:text-indigo-600 transition-colors"
-              >
-                Password
-              </label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-indigo-500 transition-colors">
-                  <Lock className="w-4.5 h-4.5" />
-                </div>
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••••••"
-                  className="w-full pl-12 pr-12 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Verify Password */}
-            <div className="space-y-2 group">
-              <label
-                htmlFor="verify-password"
-                className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 group-focus-within:text-indigo-600 transition-colors"
-              >
-                Verify Password
-              </label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-indigo-500 transition-colors">
-                  <Lock className="w-4.5 h-4.5" />
-                </div>
-                <input
-                  id="verify-password"
-                  type={showVerifyPassword ? "text" : "password"}
-                  placeholder="••••••••••••"
-                  className="w-full pl-12 pr-12 py-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowVerifyPassword(!showVerifyPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
-                >
-                  {showVerifyPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
+              <form.Field name="email">
+                {({ state, handleBlur, handleChange }) => (
+                  <>
+                    <input
+                      value={state.value}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e.target.value)}
+                      id="email"
+                      type="email"
+                      placeholder="alex.jordan@gmail.com"
+                      className="w-full px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900 focus:bg-white dark:focus:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                    />
+                    <FieldInfo state={state} />
+                  </>
+                )}
+              </form.Field>
             </div>
           </div>
 
-          <Button className="w-full py-7 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/20 transition-all active:scale-[0.98] mt-4">
+          <Button
+            type="submit"
+            className="w-full py-6 text-lg font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-[0.98]"
+          >
             Create Account
           </Button>
         </form>
 
+        {/* Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-zinc-200 dark:border-zinc-800" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase tracking-widest font-bold">
-            <span className="bg-white dark:bg-zinc-950 px-4 text-zinc-400">
-              Or Join With
+          <div className="relative flex justify-center text-sm uppercase">
+            <span className="bg-white dark:bg-zinc-950 px-4 text-zinc-500 font-bold tracking-widest text-[10px]">
+              Or
             </span>
           </div>
         </div>
 
+        {/* Social Login */}
         <button
           type="button"
-          className="w-full flex items-center justify-center gap-3 py-4 px-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 shadow-sm hover:shadow transition-all active:scale-[0.98] font-bold text-zinc-700 dark:text-zinc-200"
+          className="w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all active:scale-[0.98] font-semibold text-zinc-700 dark:text-zinc-200"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <title>Google</title>
@@ -194,16 +133,17 @@ const Form = () => {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          Google Cloud Partner
+          Continue with Google
         </button>
 
+        {/* Footer */}
         <p className="text-center text-sm text-zinc-500 dark:text-zinc-400 font-medium">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-bold transition-colors underline underline-offset-4"
+            className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-bold transition-colors"
           >
-            Log in here
+            Log in
           </Link>
         </p>
       </div>

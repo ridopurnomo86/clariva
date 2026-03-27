@@ -1,7 +1,5 @@
-import { LayoutTemplate } from "lucide-react";
-
 const ImageBranding = () => (
-  <div className="hidden lg:flex lg:w-2/5 relative p-12 flex-col justify-between overflow-hidden group">
+  <div className="hidden lg:flex lg:w-3/5 relative p-12 flex-col justify-between overflow-hidden group">
     <div
       className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-105"
       style={{
@@ -13,9 +11,6 @@ const ImageBranding = () => (
     <div className="absolute inset-0 bg-gradient-to-tr from-indigo-900/90 via-indigo-900/20 to-transparent z-10" />
     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[120px] -mr-40 -mt-20 z-10 animate-pulse" />
     <div className="relative z-20 flex items-center gap-2.5 text-white">
-      <div className="bg-white/20 backdrop-blur-md p-2 rounded-xl">
-        <LayoutTemplate className="w-6 h-6 text-white" />
-      </div>
       <span className="text-2xl font-bold tracking-tight">Clariva</span>
     </div>
     <div className="relative z-20 max-w-md">
@@ -35,7 +30,7 @@ const ImageBranding = () => (
                   Join 10,000+ creators
                 </div>
                 <div className="text-sm text-white/70">
-                  Building the future of digital forms.
+                  Building the future of workflows.
                 </div>
               </div>
             </div>
