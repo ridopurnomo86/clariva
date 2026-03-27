@@ -1,0 +1,20 @@
+{
+  "name": "@apps/source",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "format": "nx run-many --target=format --all",
+    "lint": "nx run-many --target=lint --all"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.7",
+    "nx": "22.5.4",
+    "tslib": "^2.3.0",
+    "typescript": "~5.9.2"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
