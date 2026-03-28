@@ -1,7 +1,4 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-import { createServerFn } from "@tanstack/react-start";
 import { initTRPC } from "@trpc/server";
-import { z } from "zod";
 
 const createTRPContext = () => ({});
 
@@ -33,8 +30,6 @@ export const appRouter = t.router({
   }),
 });
 
-export const createCaller = (ctx: TRPCContext) =>
-  t.createCallerFactory(appRouter)(ctx);
+export const createCaller = (ctx: TRPCContext) => t.createCallerFactory(appRouter)(ctx);
 
 export type AppRouter = typeof appRouter;
-

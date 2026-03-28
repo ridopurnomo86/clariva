@@ -7,13 +7,12 @@ const RegisterSchemaValidation = z.object({
   verifyPassword: z.string().min(6),
 });
 
-export const RegisterSchemaValidationWithPasswordMatch =
-  RegisterSchemaValidation.refine(
-    (data) => data.password === data.verifyPassword,
-    {
-      message: "Passwords do not match",
-      path: ["verifyPassword"],
-    },
-  );
+export const RegisterSchemaValidationWithPasswordMatch = RegisterSchemaValidation.refine(
+  (data) => data.password === data.verifyPassword,
+  {
+    message: "Passwords do not match",
+    path: ["verifyPassword"],
+  },
+);
 
 export default RegisterSchemaValidation;

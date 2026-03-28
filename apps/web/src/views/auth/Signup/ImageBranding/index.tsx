@@ -26,12 +26,8 @@ const ImageBranding = () => (
             <div className="flex items-center gap-4">
               <div className="h-0.5 w-10 bg-indigo-500" />
               <div>
-                <div className="text-xl font-bold text-white">
-                  Join 10,000+ creators
-                </div>
-                <div className="text-sm text-white/70">
-                  Building the future of workflows.
-                </div>
+                <div className="text-xl font-bold text-white">Join 10,000+ creators</div>
+                <div className="text-sm text-white/70">Building the future of workflows.</div>
               </div>
             </div>
           </footer>

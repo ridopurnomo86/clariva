@@ -1,9 +1,5 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import {
-  createRootRouteWithContext,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
+import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import type { MyRouterContext } from "../context";
 
