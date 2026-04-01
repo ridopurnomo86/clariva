@@ -10,7 +10,6 @@ export const handleTRPC = createServerFn({ method: "POST" })
     }),
   )
   .handler(async ({ data }) => {
-    // Dynamically import the router and caller factory only on the server
     const { createCaller } = await import("./trpc");
 
     const { path, input } = data;

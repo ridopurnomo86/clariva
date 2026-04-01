@@ -9,7 +9,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 const config = defineConfig({
   plugins: [
     devtools(),
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    process.env.NODE_ENV === "production"
+      ? cloudflare({ viteEnvironment: { name: "ssr" } })
+      : null,
     tsconfigPaths({ projects: ["./tsconfig.json"] }),
     tailwindcss(),
     tanstackStart(),
