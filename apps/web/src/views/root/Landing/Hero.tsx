@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 const Hero = () => (
-  <section className="pt-32 pb-16 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+  <section className="pt-32 pb-16 mx-auto container w-full flex flex-col items-center text-center">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}

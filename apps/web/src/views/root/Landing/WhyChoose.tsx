@@ -32,7 +32,7 @@ const features = [
 
 const WhyChoose = () => {
   return (
-    <section className="py-24 px-6 bg-[#FDFDFD]">
+    <section className="py-24 mx-auto container w-full bg-[#FDFDFD]">
       <div className="max-w-7xl mx-auto text-center mb-20">
         <div className="inline-flex items-center px-6 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-medium mb-10 shadow-sm">
           Why Choose
@@ -47,11 +47,11 @@ const WhyChoose = () => {
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {features.map((feature) => (
           <div
             key={feature.id}
-            className="group p-10 rounded-[2.5rem] bg-white border border-slate-100 hover:border-slate-200 hover:shadow-2xl hover:shadow-slate-200/40 transition-all duration-500 cursor-default relative overflow-hidden"
+            className="group p-10 rounded-lg bg-white border border-slate-200 hover:shadow-2xl hover:shadow-slate-200/40 transition-all duration-500 cursor-default relative overflow-hidden"
           >
             {/* Decorative background shapes */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50/50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-slate-100/50 transition-colors duration-500"></div>

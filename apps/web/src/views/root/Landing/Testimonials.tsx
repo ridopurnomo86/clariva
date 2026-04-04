@@ -15,7 +15,7 @@ const testimonials = Array.from({ length: 6 }, (_, i) => ({
 
 const Testimonials = () => {
   return (
-    <section className="bg-white py-24 px-6 overflow-hidden">
+    <section className="bg-white w-full mx-auto container py-24 overflow-hidden">
       {/* Header section */}
       <div className="mx-auto max-w-7xl text-center mb-20">
         <div className="inline-flex items-center px-6 py-2 rounded-full border border-slate-200 bg-[#FDFDFD] text-slate-800 text-sm font-medium mb-10 shadow-sm">
@@ -31,7 +31,7 @@ const Testimonials = () => {
       </div>
 
       {/* Stats container */}
-      <div className="mx-auto max-w-7xl mb-20">
+      <div className="w-full mx-auto mb-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 py-8">
           {stats.map((stat) => (
             <div
@@ -50,7 +50,7 @@ const Testimonials = () => {
       </div>
 
       {/* Testimonials Grid container */}
-      <div className="mx-auto max-w-7xl border border-slate-100 rounded-3xl overflow-hidden bg-slate-50/30">
+      <div className="w-full mx-auto border border-slate-100 rounded-3xl overflow-hidden bg-slate-50/30">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <div
