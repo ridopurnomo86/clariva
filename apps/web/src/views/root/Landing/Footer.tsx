@@ -9,15 +9,6 @@ const mainLinks = [
   "FAQ",
   "Contact Us",
 ];
-const bottomLinks = [
-  "Blog",
-  "Case Studies",
-  "Help Center",
-  "Privacy Policy",
-  "Terms of Service",
-  "FAQ",
-  "Contact Us",
-];
 
 const Footer = () => (
   <footer className="bg-[#FDFDFD] pt-28 pb-20 relative flex flex-col items-center">

@@ -13,6 +13,7 @@ import { Route as TypographyRouteImport } from './routes/typography'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminOnboardingRouteImport } from './routes/admin/onboarding'
 
 const TypographyRoute = TypographyRouteImport.update({
   id: '/typography',
@@ -34,18 +35,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminOnboardingRoute = AdminOnboardingRouteImport.update({
+  id: '/admin/onboarding',
+  path: '/admin/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/typography': typeof TypographyRoute
+  '/admin/onboarding': typeof AdminOnboardingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/typography': typeof TypographyRoute
+  '/admin/onboarding': typeof AdminOnboardingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,20 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/typography': typeof TypographyRoute
+  '/admin/onboarding': typeof AdminOnboardingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/typography'
+  fullPaths: '/' | '/login' | '/signup' | '/typography' | '/admin/onboarding'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/typography'
-  id: '__root__' | '/' | '/login' | '/signup' | '/typography'
+  to: '/' | '/login' | '/signup' | '/typography' | '/admin/onboarding'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/typography'
+    | '/admin/onboarding'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +82,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   TypographyRoute: typeof TypographyRoute
+  AdminOnboardingRoute: typeof AdminOnboardingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +115,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/onboarding': {
+      id: '/admin/onboarding'
+      path: '/admin/onboarding'
+      fullPath: '/admin/onboarding'
+      preLoaderRoute: typeof AdminOnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   TypographyRoute: TypographyRoute,
+  AdminOnboardingRoute: AdminOnboardingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

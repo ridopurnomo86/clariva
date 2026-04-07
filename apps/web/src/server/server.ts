@@ -33,7 +33,7 @@ export const createServer = async (
     app.use(express.static(path.resolve(__dirname, "../client")));
 
     // Handle any requests that don't match an API route by serving the React app's index.html
-    app.get("*", (req, res) => {
+    app.get("*", (_req, res) => {
       res.sendFile(path.resolve(__dirname, "../client", "index.html"));
     });
   } else {
